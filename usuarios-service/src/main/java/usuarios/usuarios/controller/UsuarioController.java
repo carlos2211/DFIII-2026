@@ -26,7 +26,7 @@ public class UsuarioController {
         return service.crearUsuario(usuario);
     }
 
-    // 🔐 LOGIN
+    // login
     @PostMapping("/login")
     public String login(@RequestBody Usuario usuario) {
 
@@ -45,13 +45,13 @@ public class UsuarioController {
         return service.obtenerUsuario(id);
     }
 
-    // Editar usuario
+    // Editar 
     @PutMapping("/{id}")
     public Usuario actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
         return service.actualizarUsuario(id, usuario);
     }
 
-    // Eliminar usuario
+    // Eliminar 
     @DeleteMapping("/{id}")
     public void eliminarUsuario(@PathVariable Long id) {
         service.eliminarUsuario(id);

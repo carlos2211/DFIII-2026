@@ -1,0 +1,47 @@
+.catalogo-wrapper { background: #f5f7fb; min-height: 100vh; }
+.catalogo-header { text-align: center; padding: 30px 0 20px; }
+.catalogo-header h1 { color: #0f3460; font-weight: 800; font-size: 2rem; }
+.catalogo-header p  { color: #888; }
+.filtros-bar {
+  background: white; border-radius: 12px; padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 28px;
+}
+.form-label-small { font-size: 0.8rem; font-weight: 600; color: #555; margin-bottom: 4px; display: block; }
+.resultados-count { font-size: 0.9rem; color: #888; font-weight: 600; }
+.no-resultados { text-align: center; padding: 60px 0; color: #aaa; }
+.no-resultados .icon { font-size: 3rem; }
+.libro-card {
+  background: white; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08); transition: transform 0.25s, box-shadow 0.25s;
+  position: relative; height: 100%; display: flex; flex-direction: column;
+}
+.libro-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+.badge-descuento {
+  position: absolute; top: 10px; left: 10px; z-index: 2;
+  background: #e94560; color: white; font-size: 0.65rem;
+  font-weight: 700; padding: 3px 8px; border-radius: 10px;
+}
+.libro-img-wrapper { height: 200px; overflow: hidden; background: #eee; display: flex; align-items: center; justify-content: center; }
+.libro-img { width: 100%; height: 100%; object-fit: cover; }
+.libro-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+.genero-badge {
+  font-size: 0.7rem; font-weight: 700; background: #e8eeff; color: #0f3460;
+  padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 6px;
+}
+.titulo { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; margin: 0 0 4px; line-height: 1.3; }
+.autor  { font-size: 0.8rem; color: #888; margin: 0 0 6px; }
+.descripcion { font-size: 0.78rem; color: #777; margin: 0 0 10px; flex: 1; }
+.precios { margin-bottom: 10px; }
+.precio-original { font-size: 0.8rem; color: #aaa; text-decoration: line-through; margin-right: 6px; }
+.precio-final { font-size: 1.1rem; font-weight: 700; color: #0f3460; }
+.libro-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.stock { font-size: 0.75rem; font-weight: 600; }
+.stock.ok   { color: #27ae60; }
+.stock.bajo { color: #e67e22; }
+.btn-agregar {
+  background: #0f3460; color: white; border: none; border-radius: 8px;
+  padding: 6px 12px; font-size: 0.8rem; font-weight: 600; transition: background 0.2s;
+}
+.btn-agregar:hover   { background: #16213e; }
+.btn-agregar.agregado{ background: #27ae60; }
+.btn-agregar:disabled{ background: #ccc; cursor: not-allowed; }

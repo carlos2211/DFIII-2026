@@ -1,0 +1,91 @@
+<div class="carrito-wrapper">
+  <div class="container py-4">
+
+    <!-- Pedido confirmado -->
+    <div class="confirmacion" *ngIf="pedidoConfirmado">
+      <div class="confirmacion-icon">🎉</div>
+      <h2>¡Pedido confirmado!</h2>
+      <p>Tu número de pedido es: <strong>{{ numeroPedido }}</strong></p>
+      <p class="text-muted">Recibirás un correo con los detalles de tu compra.</p>
+      <button class="btn btn-primary btn-continuar" (click)="seguirComprando()">
+        Seguir comprando
+      </button>
+    </div>
+
+    <!-- Carrito vacío -->
+    <div class="carrito-vacio" *ngIf="!pedidoConfirmado && items.length === 0">
+      <div class="icon">🛒</div>
+      <h3>Tu carrito está vacío</h3>
+      <p>Agrega libros desde el catálogo para comenzar</p>
+      <button class="btn btn-primary btn-ir" routerLink="/catalogo">
+        Ver catálogo
+      </button>
+    </div>
+
+    <!-- Carrito con items -->
+    <div *ngIf="!pedidoConfirmado && items.length > 0">
+      <h2 class="carrito-titulo">🛒 Mi Carrito <span>({{ items.length }} producto(s))</span></h2>
+
+      <div class="row g-4">
+
+        <!-- Lista de items -->
+        <div class="col-12 col-lg-8">
+          <div class="items-card">
+            <div class="item-row" *ngFor="let item of items">
+              <img [src]="item.libro.imagen" [alt]="item.libro.titulo" class="item-img"
+                   onerror="this.src='https://via.placeholder.com/70x90?text=Libro'">
+
+              <div class="item-info">
+                <h5>{{ item.libro.titulo }}</h5>
+                <p class="item-autor">{{ item.libro.autor }}</p>
+                <span class="item-genero">{{ item.libro.genero }}</span>
+              </div>
+
+              <div class="item-cantidad">
+                <label>Cant.</label>
+                <input type="number" class="form-control form-control-sm"
+                       [value]="item.cantidad" min="1" [max]="item.libro.stock"
+                       (change)="cambiarCantidad(item.libro.id, $event)">
+              </div>
+
+              <div class="item-precio">
+                <span class="precio-unit">${{ item.libro.precio | clp  }} c/u</span>
+                <span class="precio-subtotal">${{ item.libro.precio * item.cantidad | clp }}</span>
+              </div>
+
+              <button class="btn btn-quitar" (click)="quitar(item.libro.id)" title="Quitar">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resumen -->
+        <div class="col-12 col-lg-4">
+          <div class="resumen-card">
+            <h4>Resumen del pedido</h4>
+            <hr>
+            <div class="resumen-fila" *ngFor="let item of items">
+              <span>{{ item.libro.titulo | slice:0:20 }}{{ item.libro.titulo.length > 20 ? '...' : '' }} x{{ item.cantidad }}</span>
+              <span>${{ item.libro.precio * item.cantidad | clp  }}</span>
+            </div>
+            <hr>
+            <div class="resumen-total">
+              <span>Total</span>
+              <span>${{ getTotal() | clp  }}</span>
+            </div>
+            <div class="resumen-nota">
+              <small>🚚 Envío gratis en compras sobre $20.000</small>
+            </div>
+            <button class="btn btn-confirmar w-100" (click)="confirmarPedido()">
+              ✅ Confirmar pedido
+            </button>
+            <button class="btn btn-outline-secondary w-100 mt-2" routerLink="/catalogo">
+              Seguir comprando
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

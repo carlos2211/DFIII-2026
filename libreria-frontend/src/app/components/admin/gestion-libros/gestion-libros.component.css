@@ -1,0 +1,66 @@
+.gestion-wrapper { background: #f5f7fb; min-height: 100vh; }
+.page-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 12px; margin-bottom: 24px;
+}
+.page-header h1 { color: #0f3460; font-weight: 800; margin: 0; }
+.page-header p  { color: #888; margin: 0; }
+.btn-nuevo {
+  background: linear-gradient(135deg, #e94560, #c73652);
+  color: white; border: none; border-radius: 8px;
+  padding: 10px 20px; font-weight: 700; white-space: nowrap;
+  transition: transform 0.2s;
+}
+.btn-nuevo:hover { transform: translateY(-2px); }
+
+/* Formulario */
+.form-card {
+  background: white; border-radius: 14px; padding: 28px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08); margin-bottom: 24px;
+  border-left: 4px solid #0f3460;
+}
+.form-card h5 { color: #0f3460; font-weight: 700; }
+.form-label { font-weight: 600; color: #444; font-size: 0.85rem; }
+.form-control, .form-select { border-radius: 8px; border: 1.5px solid #ddd; font-size: 0.9rem; }
+.form-control:focus, .form-select:focus {
+  border-color: #0f3460; box-shadow: 0 0 0 3px rgba(15,52,96,0.12);
+}
+.form-acciones { display: flex; gap: 10px; }
+.btn-guardar {
+  background: #0f3460; color: white; border: none;
+  border-radius: 8px; padding: 10px 24px; font-weight: 600;
+}
+.btn-cancelar {
+  background: transparent; color: #888; border: 1.5px solid #ddd;
+  border-radius: 8px; padding: 10px 20px;
+}
+
+/* Buscador */
+.buscador-bar {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+}
+.buscador-bar input { flex: 1; border-radius: 8px; border: 1.5px solid #ddd; }
+.resultados { font-size: 0.85rem; color: #888; font-weight: 600; white-space: nowrap; }
+
+/* Tabla */
+.tabla-card {
+  background: white; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+.tabla-img { width: 45px; height: 60px; object-fit: cover; border-radius: 4px; }
+table th { background: #f8f9fa; color: #0f3460; font-weight: 700; font-size: 0.82rem; border: none; }
+table td { font-size: 0.85rem; border-color: #f0f0f0; }
+.genero-badge {
+  background: #e8eeff; color: #0f3460; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.75rem; font-weight: 600;
+}
+.stock-ok   { color: #27ae60; font-weight: 700; }
+.stock-bajo { color: #e67e22; font-weight: 700; }
+.acciones-btns { display: flex; gap: 6px; }
+.btn-edit, .btn-del {
+  background: none; border: none; font-size: 1.1rem;
+  padding: 4px 8px; border-radius: 6px; transition: background 0.2s;
+}
+.btn-edit:hover { background: #e8eeff; }
+.btn-del:hover  { background: #fde; }
+.no-data { text-align: center; padding: 40px; color: #aaa; }

@@ -1,0 +1,28 @@
+.perfil-wrapper { background: #f0f4ff; min-height: 100vh; }
+.perfil-card {
+  background: white; border-radius: 16px; padding: 36px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+.perfil-header { text-align: center; margin-bottom: 30px; }
+.avatar {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, #0f3460, #e94560);
+  color: white; font-size: 2rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;
+}
+.perfil-header h3 { color: #0f3460; font-weight: 700; margin: 0; }
+.badge-rol {
+  display: inline-block; padding: 4px 14px; border-radius: 20px;
+  font-size: 0.8rem; font-weight: 600; margin-top: 6px;
+}
+.badge-rol.admin   { background: #fde; color: #c0392b; }
+.badge-rol.cliente { background: #ddf; color: #0f3460; }
+.form-label { font-weight: 600; color: #444; }
+.form-control { border-radius: 8px; border: 1.5px solid #ddd; }
+.form-control:focus { border-color: #0f3460; box-shadow: 0 0 0 3px rgba(15,52,96,0.12); }
+.btn-guardar {
+  background: linear-gradient(135deg, #0f3460, #16213e);
+  border: none; border-radius: 8px; padding: 12px; font-weight: 600;
+  transition: transform 0.2s;
+}
+.btn-guardar:hover { transform: translateY(-2px); }

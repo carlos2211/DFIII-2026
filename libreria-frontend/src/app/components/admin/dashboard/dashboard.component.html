@@ -1,0 +1,112 @@
+<div class="dashboard-wrapper">
+  <div class="container py-4">
+
+    <div class="dashboard-header">
+      <h1>📊 Panel de Administración</h1>
+      <p>Resumen general del sistema</p>
+    </div>
+
+    <!-- Tarjetas estadísticas -->
+    <div class="row g-4 mb-4">
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="stat-card azul">
+          <div class="stat-icon">📚</div>
+          <div class="stat-info">
+            <h2>{{ totalLibros }}</h2>
+            <p>Libros en catálogo</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="stat-card rojo">
+          <div class="stat-icon">👥</div>
+          <div class="stat-info">
+            <h2>{{ totalUsuarios }}</h2>
+            <p>Usuarios registrados</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="stat-card verde">
+          <div class="stat-icon">🏷️</div>
+          <div class="stat-info">
+            <h2>{{ totalGeneros }}</h2>
+            <p>Géneros disponibles</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accesos rápidos -->
+    <div class="row g-4 mb-4">
+      <div class="col-12 col-md-6">
+        <div class="accion-card">
+          <h5>⚡ Acciones rápidas</h5>
+          <div class="d-grid gap-2 mt-3">
+            <a routerLink="/admin/libros" class="btn btn-accion">
+              📋 Gestionar libros
+            </a>
+            <a routerLink="/catalogo" class="btn btn-accion-outline">
+              👁️ Ver catálogo como cliente
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stock bajo -->
+      <div class="col-12 col-md-6">
+        <div class="accion-card">
+          <h5>⚠️ Libros con stock bajo <span class="badge bg-warning text-dark">{{ librosStockBajo.length }}</span></h5>
+          <div *ngIf="librosStockBajo.length === 0" class="text-muted mt-2">
+            ✅ Todos los libros tienen stock suficiente.
+          </div>
+          <ul class="stock-list mt-2">
+            <li *ngFor="let l of librosStockBajo" class="stock-item">
+              <span class="stock-titulo">{{ l.titulo }}</span>
+              <span class="stock-badge">{{ l.stock }} unid.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla géneros + patrón Strategy -->
+    <div class="tabla-card">
+      <h5>🏷️ Descuentos por género <small class="text-muted">(Patrón Strategy)</small></h5>
+      <div class="table-responsive mt-3">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Género</th>
+              <th>Descuento</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="genero-tag">Novela</span></td>
+              <td><strong class="text-danger">15%</strong></td>
+              <td>DescuentoNovelaStrategy</td>
+            </tr>
+            <tr>
+              <td><span class="genero-tag">Texto Escolar</span></td>
+              <td><strong class="text-danger">20%</strong></td>
+              <td>DescuentoTextoEscolarStrategy</td>
+            </tr>
+            <tr>
+              <td><span class="genero-tag">Infantil</span></td>
+              <td><strong class="text-danger">10%</strong></td>
+              <td>DescuentoInfantilStrategy</td>
+            </tr>
+            <tr>
+              <td><span class="genero-tag">Otros</span></td>
+              <td><strong>0%</strong></td>
+              <td>SinDescuentoStrategy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

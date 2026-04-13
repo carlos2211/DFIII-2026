@@ -1,0 +1,50 @@
+.dashboard-wrapper { background: #f5f7fb; min-height: 100vh; }
+.dashboard-header { margin-bottom: 28px; }
+.dashboard-header h1 { color: #0f3460; font-weight: 800; }
+.dashboard-header p  { color: #888; }
+
+.stat-card {
+  border-radius: 16px; padding: 24px; display: flex; align-items: center;
+  gap: 20px; color: white; box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateY(-4px); }
+.stat-card.azul  { background: linear-gradient(135deg, #0f3460, #16213e); }
+.stat-card.rojo  { background: linear-gradient(135deg, #e94560, #c73652); }
+.stat-card.verde { background: linear-gradient(135deg, #27ae60, #1e8449); }
+.stat-icon { font-size: 2.5rem; }
+.stat-info h2 { font-size: 2rem; font-weight: 800; margin: 0; }
+.stat-info p  { margin: 0; opacity: 0.85; font-size: 0.9rem; }
+
+.accion-card, .tabla-card {
+  background: white; border-radius: 14px; padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+.accion-card h5, .tabla-card h5 { color: #0f3460; font-weight: 700; margin-bottom: 4px; }
+.btn-accion {
+  background: linear-gradient(135deg, #0f3460, #16213e);
+  color: white; border: none; border-radius: 8px; padding: 10px; font-weight: 600;
+  text-decoration: none; transition: transform 0.2s;
+}
+.btn-accion:hover { transform: translateY(-2px); color: white; }
+.btn-accion-outline {
+  background: transparent; color: #0f3460; border: 2px solid #0f3460;
+  border-radius: 8px; padding: 10px; font-weight: 600;
+  text-decoration: none; transition: all 0.2s;
+}
+.btn-accion-outline:hover { background: #0f3460; color: white; }
+
+.stock-list { list-style: none; padding: 0; margin: 0; }
+.stock-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid #f5f5f5;
+}
+.stock-titulo { font-size: 0.85rem; color: #555; }
+.stock-badge  { background: #fff3cd; color: #856404; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+
+.genero-tag {
+  background: #e8eeff; color: #0f3460; padding: 3px 10px;
+  border-radius: 10px; font-size: 0.8rem; font-weight: 600;
+}
+table th { color: #0f3460; font-weight: 700; font-size: 0.85rem; }
+table td { font-size: 0.85rem; vertical-align: middle; }

@@ -1,0 +1,102 @@
+<div class="registro-wrapper">
+  <div class="container">
+    <div class="row justify-content-center py-5">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+
+        <div class="registro-card">
+          <div class="card-header-custom">
+            <h2>📝 Crear cuenta</h2>
+            <p>Regístrate para acceder al catálogo</p>
+          </div>
+
+          <!-- Éxito -->
+          <div class="alert alert-success" *ngIf="exito">
+            ✅ ¡Cuenta creada exitosamente! Redirigiendo al login...
+          </div>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate *ngIf="!exito">
+
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label class="form-label">Nombre completo *</label>
+              <input type="text" class="form-control" formControlName="nombre"
+                     placeholder="Ej: María González"
+                     [ngClass]="{'is-invalid': f['nombre'].touched && f['nombre'].invalid}">
+              <div class="invalid-feedback">
+                <span *ngIf="f['nombre'].errors?.['required']">El nombre es requerido.</span>
+                <span *ngIf="f['nombre'].errors?.['minlength']">Mínimo 3 caracteres.</span>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="form-label">Correo electrónico *</label>
+              <input type="email" class="form-control" formControlName="email"
+                     placeholder="tu@correo.cl"
+                     [ngClass]="{'is-invalid': f['email'].touched && f['email'].invalid}">
+              <div class="invalid-feedback">
+                <span *ngIf="f['email'].errors?.['required']">El correo es requerido.</span>
+                <span *ngIf="f['email'].errors?.['email']">Ingresa un correo válido.</span>
+              </div>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="mb-3">
+              <label class="form-label">Teléfono (opcional)</label>
+              <input type="tel" class="form-control" formControlName="telefono"
+                     placeholder="+56912345678"
+                     [ngClass]="{'is-invalid': f['telefono'].touched && f['telefono'].invalid}">
+              <div class="invalid-feedback">Formato inválido. Ej: +56912345678</div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="form-label">Contraseña *</label>
+              <div class="input-group">
+                <input [type]="mostrarPass ? 'text' : 'password'" class="form-control"
+                       formControlName="password" placeholder="Mínimo 8 caracteres"
+                       [ngClass]="{'is-invalid': f['password'].touched && f['password'].invalid}">
+                <button class="btn btn-outline-secondary" type="button" (click)="mostrarPass=!mostrarPass">
+                  {{ mostrarPass ? '🙈' : '👁️' }}
+                </button>
+              </div>
+              <!-- Indicadores de seguridad -->
+              <div class="password-hints mt-2" *ngIf="f['password'].touched">
+                <span class="hint" [ngClass]="!f['password'].errors?.['minlength'] ? 'ok' : 'fail'">✔ Mínimo 8 caracteres</span>
+                <span class="hint" [ngClass]="!f['password'].errors?.['maxlength'] ? 'ok' : 'fail'">✔ Máximo 20 caracteres</span>
+                <span class="hint" [ngClass]="!f['password'].errors?.['sinMayuscula'] ? 'ok' : 'fail'">✔ Al menos una mayúscula</span>
+                <span class="hint" [ngClass]="!f['password'].errors?.['sinNumero'] ? 'ok' : 'fail'">✔ Al menos un número</span>
+                <span class="hint" [ngClass]="!f['password'].errors?.['sinEspecial'] ? 'ok' : 'fail'">✔ Al menos un carácter especial</span>
+              </div>
+            </div>
+
+            <!-- Confirmar password -->
+            <div class="mb-4">
+              <label class="form-label">Confirmar contraseña *</label>
+              <div class="input-group">
+                <input [type]="mostrarConfirm ? 'text' : 'password'" class="form-control"
+                       formControlName="confirmarPassword" placeholder="Repite la contraseña"
+                       [ngClass]="{'is-invalid': f['confirmarPassword'].touched && form.errors?.['noCoincide']}">
+                <button class="btn btn-outline-secondary" type="button" (click)="mostrarConfirm=!mostrarConfirm">
+                  {{ mostrarConfirm ? '🙈' : '👁️' }}
+                </button>
+                <div class="invalid-feedback">Las contraseñas no coinciden.</div>
+              </div>
+            </div>
+
+            <div class="alert alert-danger py-2" *ngIf="error">{{ error }}</div>
+
+            <button type="submit" class="btn btn-primary w-100 btn-registro">
+              Crear Cuenta
+            </button>
+          </form>
+
+          <div class="text-center mt-3">
+            <small>¿Ya tienes cuenta? <a routerLink="/login" class="link-login">Inicia sesión</a></small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

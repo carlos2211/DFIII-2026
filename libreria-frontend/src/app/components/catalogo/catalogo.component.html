@@ -1,0 +1,94 @@
+<div class="catalogo-wrapper">
+  <div class="container py-4">
+
+    <!-- Header -->
+    <div class="catalogo-header">
+      <h1>📚 Catálogo de Libros</h1>
+      <p>Encuentra tu próxima lectura</p>
+    </div>
+
+    <!-- Barra de búsqueda y filtros -->
+    <div class="filtros-bar">
+      <div class="row g-2 align-items-end">
+        <div class="col-12 col-sm-6 col-md-5">
+          <label class="form-label-small">Buscar</label>
+          <input type="text" class="form-control" placeholder="🔍 Título, autor o género..."
+                 [(ngModel)]="busqueda" (input)="filtrar()">
+        </div>
+        <div class="col-12 col-sm-4 col-md-3">
+          <label class="form-label-small">Género</label>
+          <select class="form-select" [(ngModel)]="generoSelec" (change)="filtrar()">
+            <option value="">Todos</option>
+            <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
+          </select>
+        </div>
+        <div class="col-12 col-sm-2 col-md-2">
+          <button class="btn btn-outline-secondary w-100" (click)="limpiarFiltros()">
+            Limpiar
+          </button>
+        </div>
+        <div class="col-12 col-md-2 text-end">
+          <span class="resultados-count">{{ filtrados.length }} libro(s)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sin resultados -->
+    <div class="no-resultados" *ngIf="filtrados.length === 0">
+      <div class="icon">📭</div>
+      <p>No se encontraron libros con ese criterio.</p>
+      <button class="btn btn-outline-primary" (click)="limpiarFiltros()">Ver todos</button>
+    </div>
+
+    <!-- Grid de libros -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <div class="col" *ngFor="let libro of filtrados">
+        <div class="libro-card">
+
+          <!-- Badge descuento (Strategy) -->
+          <div class="badge-descuento" *ngIf="tieneDescuento(libro)">
+            🏷️ DESCUENTO
+          </div>
+
+          <div class="libro-img-wrapper">
+            <img [src]="libro.imagen" [alt]="libro.titulo" class="libro-img"
+                 onerror="this.src='https://via.placeholder.com/200x280?text=Sin+Imagen'">
+          </div>
+
+          <div class="libro-body">
+            <span class="genero-badge">{{ libro.genero }}</span>
+            <h5 class="titulo">{{ libro.titulo }}</h5>
+            <p class="autor">{{ libro.autor }}</p>
+            <p class="descripcion">{{ libro.descripcion }}</p>
+
+            <div class="precios">
+              <span class="precio-original" *ngIf="tieneDescuento(libro)">
+                ${{ libro.precio | clp  }}
+              </span>
+              <span class="precio-final">
+                ${{ getPrecioConDescuento(libro) | clp }}
+              </span>
+            </div>
+
+            <div class="libro-footer">
+              <span class="stock" [ngClass]="libro.stock > 5 ? 'ok' : 'bajo'">
+                Stock: {{ libro.stock }}
+              </span>
+
+              <!-- Solo cliente puede agregar al carrito -->
+              <button *ngIf="authSvc.isCliente()"
+                      class="btn btn-agregar"
+                      [ngClass]="agregados.has(libro.id) ? 'agregado' : ''"
+                      (click)="agregarAlCarrito(libro)"
+                      [disabled]="libro.stock === 0">
+                {{ agregados.has(libro.id) ? '✅ Agregado' : '🛒 Agregar' }}
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,149 @@
+<div class="gestion-wrapper">
+  <div class="container py-4">
+
+    <div class="page-header">
+      <div>
+        <h1>📋 Gestión de Libros</h1>
+        <p>Administra el catálogo de la librería</p>
+      </div>
+      <button class="btn btn-nuevo" (click)="abrirNuevo()">+ Nuevo libro</button>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="alert" [ngClass]="'alert-' + tipoMensaje" *ngIf="mensaje" role="alert">
+      {{ mensaje }}
+    </div>
+
+    <!-- Formulario agregar/editar -->
+    <div class="form-card" *ngIf="mostrarFormulario">
+      <h5>{{ modoEdicion ? '✏️ Editar libro' : '➕ Agregar nuevo libro' }}</h5>
+      <hr>
+      <form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+        <div class="row g-3">
+
+          <div class="col-12 col-md-6">
+            <label class="form-label">Título *</label>
+            <input type="text" class="form-control" formControlName="titulo"
+                   [ngClass]="{'is-invalid': f['titulo'].touched && f['titulo'].invalid}">
+            <div class="invalid-feedback">Requerido (mínimo 2 caracteres).</div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label class="form-label">Autor *</label>
+            <input type="text" class="form-control" formControlName="autor"
+                   [ngClass]="{'is-invalid': f['autor'].touched && f['autor'].invalid}">
+            <div class="invalid-feedback">Requerido.</div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <label class="form-label">Año publicación *</label>
+            <input type="number" class="form-control" formControlName="anioPublicacion"
+                   [ngClass]="{'is-invalid': f['anioPublicacion'].touched && f['anioPublicacion'].invalid}">
+            <div class="invalid-feedback">Año entre 1000 y 2025.</div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <label class="form-label">Género *</label>
+            <select class="form-select" formControlName="genero"
+                    [ngClass]="{'is-invalid': f['genero'].touched && f['genero'].invalid}">
+              <option value="">Seleccionar...</option>
+              <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
+            </select>
+            <div class="invalid-feedback">Requerido.</div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <label class="form-label">Precio (CLP) *</label>
+            <input type="number" class="form-control" formControlName="precio" min="1"
+                   [ngClass]="{'is-invalid': f['precio'].touched && f['precio'].invalid}">
+            <div class="invalid-feedback">Precio válido requerido.</div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <label class="form-label">Stock *</label>
+            <input type="number" class="form-control" formControlName="stock" min="0"
+                   [ngClass]="{'is-invalid': f['stock'].touched && f['stock'].invalid}">
+            <div class="invalid-feedback">Stock requerido.</div>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Descripción *</label>
+            <textarea class="form-control" formControlName="descripcion" rows="2"
+                      [ngClass]="{'is-invalid': f['descripcion'].touched && f['descripcion'].invalid}"></textarea>
+            <div class="invalid-feedback">Requerida.</div>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">URL Imagen (opcional)</label>
+            <input type="text" class="form-control" formControlName="imagen"
+                   placeholder="https://...">
+          </div>
+
+        </div>
+
+        <div class="form-acciones mt-3">
+          <button type="submit" class="btn btn-guardar">
+            {{ modoEdicion ? '💾 Actualizar' : '➕ Agregar' }}
+          </button>
+          <button type="button" class="btn btn-cancelar" (click)="cancelar()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Buscador -->
+    <div class="buscador-bar">
+      <input type="text" class="form-control" placeholder="🔍 Buscar por título, autor o género..."
+             [(ngModel)]="busqueda">
+      <span class="resultados">{{ librosFiltrados.length }} libro(s)</span>
+    </div>
+
+    <!-- Tabla -->
+    <div class="tabla-card">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Portada</th>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Género</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let libro of librosFiltrados">
+              <td class="text-muted">#{{ libro.id }}</td>
+              <td>
+                <img [src]="libro.imagen" [alt]="libro.titulo" class="tabla-img"
+                     onerror="this.src='https://via.placeholder.com/45x60?text=?'">
+              </td>
+              <td><strong>{{ libro.titulo }}</strong></td>
+              <td class="text-muted">{{ libro.autor }}</td>
+              <td><span class="genero-badge">{{ libro.genero }}</span></td>
+              <td>${{ libro.precio | clp  }}</td>
+              <td>
+                <span [ngClass]="libro.stock > 5 ? 'stock-ok' : 'stock-bajo'">
+                  {{ libro.stock }}
+                </span>
+              </td>
+              <td>
+                <div class="acciones-btns">
+                  <button class="btn btn-edit" (click)="editar(libro)" title="Editar">✏️</button>
+                  <button class="btn btn-del"  (click)="eliminar(libro.id)" title="Eliminar">🗑️</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="no-data" *ngIf="librosFiltrados.length === 0">
+          <p>📭 No se encontraron libros.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

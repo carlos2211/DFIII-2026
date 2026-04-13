@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <!-- Logo / Marca -->
+    <a class="navbar-brand" routerLink="/catalogo">
+      <span class="brand-icon">📚</span> LibreríaOnline
+    </a>
+
+    <!-- Botón hamburguesa (responsive) -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+
+      <!-- Links centro -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isLoggedIn">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/catalogo" routerLinkActive="active">Catálogo</a>
+        </li>
+        <!-- Solo Admin -->
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link" routerLink="/admin/libros" routerLinkActive="active">Gestión Libros</a>
+        </li>
+      </ul>
+
+      <!-- Links derecha -->
+      <ul class="navbar-nav ms-auto">
+        <ng-container *ngIf="isLoggedIn; else noLogueado">
+          <!-- Carrito (solo clientes) -->
+          <li class="nav-item" *ngIf="!isAdmin">
+            <a class="nav-link carrito-link" routerLink="/carrito">
+              🛒 <span class="badge-carrito" *ngIf="cantidadCarrito > 0">{{ cantidadCarrito }}</span>
+            </a>
+          </li>
+          <!-- Perfil dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              👤 {{ usuario?.nombre | slice:0:12 }}
+              <span class="badge-rol" [ngClass]="isAdmin ? 'admin' : 'cliente'">{{ usuario?.rol }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" routerLink="/perfil">✏️ Mi Perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" (click)="logout()" style="cursor:pointer">🚪 Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        </ng-container>
+        <ng-template #noLogueado>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/registro">Registrarse</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>

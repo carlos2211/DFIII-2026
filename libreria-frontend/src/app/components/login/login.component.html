@@ -1,0 +1,70 @@
+<div class="login-wrapper">
+  <div class="container">
+    <div class="row justify-content-center align-items-center min-vh-80">
+      <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+
+        <div class="login-card">
+          <div class="login-header">
+            <div class="logo">📚</div>
+            <h2>LibreríaOnline</h2>
+            <p class="subtitle">Inicia sesión en tu cuenta</p>
+          </div>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control"
+                     formControlName="email" placeholder="tu@correo.cl"
+                     [ngClass]="{'is-invalid': f['email'].touched && f['email'].invalid}">
+              <div class="invalid-feedback">
+                <span *ngIf="f['email'].errors?.['required']">El correo es requerido.</span>
+                <span *ngIf="f['email'].errors?.['email']">Ingresa un correo válido.</span>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+              <div class="input-group">
+                <input [type]="mostrarPassword ? 'text' : 'password'"
+                       class="form-control" formControlName="password"
+                       placeholder="••••••••"
+                       [ngClass]="{'is-invalid': f['password'].touched && f['password'].invalid}">
+                <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
+                  {{ mostrarPassword ? '🙈' : '👁️' }}
+                </button>
+                <div class="invalid-feedback">
+                  <span *ngIf="f['password'].errors?.['required']">La contraseña es requerida.</span>
+                  <span *ngIf="f['password'].errors?.['minlength']">Mínimo 6 caracteres.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error global -->
+            <div class="alert alert-danger py-2" *ngIf="error">{{ error }}</div>
+
+            <button type="submit" class="btn btn-primary w-100 btn-login">
+              Iniciar Sesión
+            </button>
+          </form>
+
+          <div class="login-footer">
+            <a routerLink="/recuperar-password">¿Olvidaste tu contraseña?</a>
+            <span class="separator">|</span>
+            <a routerLink="/registro">Crear cuenta nueva</a>
+          </div>
+
+          <!-- Credenciales de prueba -->
+          <div class="demo-box">
+            <p class="demo-title">🔑 Cuentas de prueba</p>
+            <small><strong>Admin:</strong> admin@libreria.cl / Admin@1234</small><br>
+            <small><strong>Cliente:</strong> maria@correo.cl / Maria@1234</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
