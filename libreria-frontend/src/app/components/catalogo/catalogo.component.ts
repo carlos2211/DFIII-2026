@@ -17,6 +17,7 @@ export class CatalogoComponent implements OnInit {
   busqueda    = '';
   generoSelec = '';
   agregados   = new Set<number>();
+  cargando    = true;
 
   constructor(
     private libroSvc:   LibroService,
@@ -25,15 +26,35 @@ export class CatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.libros    = this.libroSvc.getLibros();
-    this.filtrados = [...this.libros];
-    this.generos   = this.libroSvc.getGeneros();
+    this.libroSvc.getLibrosHttp().subscribe({
+      next: (libros) => {
+        this.libros    = libros;
+        this.filtrados = [...libros];
+        this.generos   = [...new Set(libros.map((l: Libro) => l.genero))];
+        this.cargando  = false;
+      },
+      error: () => {
+        this.libros    = this.libroSvc.getLibros();
+        this.filtrados = [...this.libros];
+        this.generos   = this.libroSvc.getGeneros();
+        this.cargando  = false;
+      }
+    });
   }
 
   filtrar(): void {
     let resultado = [...this.libros];
-    if (this.busqueda.trim()) resultado = this.libroSvc.buscar(this.busqueda);
-    if (this.generoSelec)     resultado = resultado.filter(l => l.genero === this.generoSelec);
+    if (this.busqueda.trim()) {
+      const t = this.busqueda.toLowerCase();
+      resultado = resultado.filter(l =>
+        l.titulo.toLowerCase().includes(t) ||
+        l.autor.toLowerCase().includes(t) ||
+        l.genero.toLowerCase().includes(t)
+      );
+    }
+    if (this.generoSelec) {
+      resultado = resultado.filter(l => l.genero === this.generoSelec);
+    }
     this.filtrados = resultado;
   }
 

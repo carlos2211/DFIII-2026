@@ -17,10 +17,22 @@ export class DashboardComponent implements OnInit {
   constructor(private libroSvc: LibroService, private authSvc: AuthService) {}
 
   ngOnInit(): void {
-    const libros         = this.libroSvc.getLibros();
-    this.totalLibros     = libros.length;
-    this.totalUsuarios   = this.authSvc.getTodosUsuarios().length;
-    this.totalGeneros    = this.libroSvc.getGeneros().length;
-    this.librosStockBajo = libros.filter(l => l.stock <= 5);
+    // Cargar desde API
+    this.libroSvc.getLibrosHttp().subscribe({
+      next: (libros) => {
+        this.totalLibros     = libros.length;
+        this.totalGeneros    = [...new Set(libros.map(l => l.genero))].length;
+        this.librosStockBajo = libros.filter(l => l.stock <= 5);
+      },
+      error: () => {
+        // Fallback local
+        const libros         = this.libroSvc.getLibros();
+        this.totalLibros     = libros.length;
+        this.totalGeneros    = this.libroSvc.getGeneros().length;
+        this.librosStockBajo = libros.filter(l => l.stock <= 5);
+      }
+    });
+
+    this.totalUsuarios = this.authSvc.getTodosUsuarios().length;
   }
 }

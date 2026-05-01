@@ -1,0 +1,6 @@
+projectKey=libreria-frontend
+serverUrl=http://localhost:9000
+serverVersion=26.4.0.121862
+dashboardUrl=http://localhost:9000/dashboard?id=libreria-frontend
+ceTaskId=88719116-0c72-4686-aeea-cc9624697819
+ceTaskUrl=http://localhost:9000/api/ce/task?id=88719116-0c72-4686-aeea-cc9624697819

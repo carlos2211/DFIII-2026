@@ -23,7 +23,20 @@ public class Libro {
     @Column(name = "GENERO")
     private String genero;
 
-    public Libro() {}
+    @Column(name = "PRECIO")
+    private Double precio;
+
+    @Column(name = "IMAGEN")
+    private String imagen;
+
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
+
+    @Column(name = "STOCK")
+    private Integer stock;
+
+    public Libro() {
+    }
 
     public Long getId() {
         return id;
@@ -63,5 +76,37 @@ public class Libro {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }
